@@ -14,20 +14,7 @@ import br.edu.atitus.denguealerta.components.AuthToken;
 @Configuration
 public class ConfigSecurity {
 
-	@Bean
-	WebMvcConfigurer corsConfigurer() {
-		return new WebMvcConfigurer() {
-			@Override
-			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**")
-						.allowedOrigins("*")
-						.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-						.allowedHeaders("*")
-						.allowCredentials(false)
-						.maxAge(3600);
-			}
-		};
-	}
+
 
 	@Bean
 	SecurityFilterChain getSecurity(HttpSecurity http, AuthToken authToken) throws Exception {
@@ -40,5 +27,15 @@ public class ConfigSecurity {
 				)
 				.addFilterBefore(authToken, UsernamePasswordAuthenticationFilter.class);
 		return http.build();
+	}
+	@Bean
+	WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurer() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/**")
+						.allowedOrigins("*");
+			}
+		};
 	}
 }
