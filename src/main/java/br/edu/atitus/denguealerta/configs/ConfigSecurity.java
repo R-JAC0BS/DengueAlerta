@@ -9,10 +9,21 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import br.edu.atitus.denguealerta.components.AuthToken;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 
 public class ConfigSecurity {
+	@Bean
+	WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurer() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/*").allowedOrigins("");
+			}
+		};
+	}
 	
 	@Bean
 	SecurityFilterChain getSecurity(HttpSecurity http, AuthToken authToken) throws Exception {
