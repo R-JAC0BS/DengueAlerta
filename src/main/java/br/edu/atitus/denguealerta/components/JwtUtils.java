@@ -36,7 +36,6 @@ public class JwtUtils {
 
 	public static boolean validaJwtToken(String jwt) {
 		try {
-			//Jwts.parser().setSigningKey(key()).build().parse(jwt);
 			Jwts.parser().verifyWith(key()).build().parse(jwt);
 			return true;
 		} catch (Exception e) {
@@ -45,7 +44,6 @@ public class JwtUtils {
 	}
 
 	public static String getUserNameFromJwtToken(String token) {
-		//return Jwts.parser().setSigningKey(key()).build().parseClaimsJws(token).getBody().getSubject();
 		return Jwts.parser().verifyWith(key()).build().parseSignedClaims(token).getPayload().getSubject();
 	}
 
